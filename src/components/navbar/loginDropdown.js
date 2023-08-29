@@ -31,6 +31,7 @@ export default function LoginDropdown() {
     document.cookie =
       "refresh_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     setIsAuthenticated(false);
+    window.location.reload(true);
   };
 
   const handleSubmit = async (e) => {
