@@ -3,9 +3,7 @@ import Navbar from "../components/navbar";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 
 export default function Layout({ children }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(
-    localStorage.getItem("isSidebarOpen") || false
-  );
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const handleSidebarToggle = () => {
     const updatedValue = !isSidebarOpen;
     setIsSidebarOpen(updatedValue);

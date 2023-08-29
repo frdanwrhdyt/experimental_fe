@@ -20,7 +20,7 @@ export default function Wms() {
     if (isAuthenticated) {
       // Fetch layer data from backend when isAuthenticated is true
       axios
-        .get("http://localhost:8000/mylayers", {
+        .get(`${process.env.REACT_APP_BACKEND_BASE_URL}mylayers`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -34,11 +34,15 @@ export default function Wms() {
     }
   }, [isAuthenticated]);
   useEffect(() => {
-    axios.get("http://localhost:8000/common-layers").then((response) => {
-      const commonLayerNames = response.data.map((item) => item.name);
-      setCommonLayer(commonLayerNames);
-    });
-  });
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_BASE_URL}common-layers`)
+      .then((response) => {
+        setCommonLayer(response.data.map((item) => item.name));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   if (isAuthenticated) {
     return (
       <>
