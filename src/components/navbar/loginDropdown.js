@@ -43,7 +43,7 @@ export default function LoginDropdown() {
       setError("");
       try {
         const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_BASE_URL}/login`,
+          `${process.env.REACT_APP_BACKEND_BASE_URL}login`,
           {
             username,
             password,
