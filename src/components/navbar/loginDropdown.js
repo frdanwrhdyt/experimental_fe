@@ -57,6 +57,7 @@ export default function LoginDropdown() {
           setIsAuthenticated(true);
           setUsername("");
           setPassword("");
+          window.location.reload(true);
         } else {
           setError(data.message);
         }
