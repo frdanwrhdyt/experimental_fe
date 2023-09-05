@@ -3,15 +3,17 @@ import TelkomsatLogo from "../assets/telkomsat logo.png";
 import Legend from "../components/maps/legend/legend";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Layout() {
   const [buttonTable, setBottomTable] = useState(false);
+  const [data, setData] = useState();
   const location = useLocation();
 
   const toggleTable = () => {
     setBottomTable(!buttonTable);
   };
+  useEffect(() => {}, []);
 
   return (
     <div className="w-screen h-screen overflow-none ">
@@ -52,7 +54,7 @@ export default function Layout() {
             ini table
           </div>
           <div
-            className={`w-full flex items-center space-x-5 px-4  ${
+            className={`w-full flex items-center space-x-5 px-4 absolute bottom-0 ${
               buttonTable ? "h-[40%]" : "h-full"
             } `}
           >
@@ -70,3 +72,67 @@ export default function Layout() {
     </div>
   );
 }
+
+const DataTable = ({ data, currentPage, totalPages, onPageChange }) => {
+  const itemsPerPage = 20;
+
+  const handlePageChange = (page) => {
+    onPageChange(page);
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = data.slice(startIndex, endIndex);
+
+  return (
+    <div>
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            {Object.keys(data[0]).map((key) => (
+              <th
+                key={key}
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                {key}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {data.map((item) => (
+            <tr key={item.id}>
+              {Object.keys(item).map((key) => (
+                <td className="px-6 py-4 whitespace-nowrap" key={key}>
+                  {key === "geom"
+                    ? `[${item[key].coordinates.join(", ")}]`
+                    : item[key]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="mt-4 flex justify-center">
+        <nav className="block">
+          <ul className="flex pl-0 rounded list-none flex-wrap">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`${
+                    currentPage === index + 1
+                      ? "bg-indigo-500 text-white hover:bg-indigo-600"
+                      : "bg-white text-gray-500 hover:bg-gray-100"
+                  } px-3 py-2 rounded-lg text-sm font-medium`}
+                >
+                  {index + 1}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
+};
