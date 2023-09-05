@@ -13,7 +13,7 @@ export default function Layout() {
   const toggleTable = () => {
     setBottomTable(!buttonTable);
   };
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   return (
     <div className="w-screen h-screen overflow-none ">
@@ -73,16 +73,14 @@ export default function Layout() {
   );
 }
 
+// import React, { useState } from "react";
+
 const DataTable = ({ data, currentPage, totalPages, onPageChange }) => {
   const itemsPerPage = 20;
 
   const handlePageChange = (page) => {
     onPageChange(page);
   };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentData = data.slice(startIndex, endIndex);
 
   return (
     <div>
