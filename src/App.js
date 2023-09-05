@@ -1,32 +1,37 @@
-import React, { useRef, useEffect } from "react";
-import {
-  MapContainer,
-  LayersControl,
-  ScaleControl,
-  useMap,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import Wms from "./components/maps/wms";
-
-import BaseTileLayer from "./components/maps/baseLayer";
-import LeafletRuler from "./components/maps/ruler/LeafletRuler";
+import React from "react";
+import Index from "./pages";
+import About from "./pages/about";
+import Login from "./pages/login";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import PersistLogin from "./utils/persistLogin";
+import NotFoundPage from "./pages/NotFoundPage";
+import RequireAuth from "./utils/requireAuth";
+import Layout from "./layout/index";
+import Admin from "./pages/admin";
+import TableDetail from "./pages/table";
+// import Test from "./pages/test";
 
 export default function App() {
-  const mapRef = useRef();
-  const wmsRef = useRef();
-  useEffect(() => {
-    console.log(wmsRef);
-  }, [wmsRef]);
   return (
-    <div className="w-full h-full">
-      <MapContainer center={[-6.2, 107]} zoom={[5]} ref={mapRef}>
-        <LayersControl position="topright" className="leaflet-control-layers">
-          <BaseTileLayer />
-          <Wms />
-          <ScaleControl position="bottomright" />
-        </LayersControl>
-        <LeafletRuler />
-      </MapContainer>
-    </div>
+    // <div className="bg-gray-100">
+    <Routes>
+      <Route path="login" element={<Login />} />
+      <Route element={<Layout />}>
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={["user", "superuser"]} />}>
+            <Route path="" element={<Index />} />
+            {/* <Route path="test" element={<Test />} /> */}
+            <Route path="about" element={<About />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["superuser"]} />}>
+            <Route path="dashboard" element={<Admin />} />
+            <Route path="table/:tableName" element={<TableDetail />} />
+          </Route>
+        </Route>
+      </Route>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+    // </div>
   );
 }

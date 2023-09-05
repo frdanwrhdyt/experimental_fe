@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
+import Legend from "../maps/legend/legend";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -9,7 +10,9 @@ export default function Sidebar() {
         className={`h-full ease-in-out duration-300 ${
           isOpen ? "translate-x-0 w-3/12" : "-translate-x-full w-0"
         }`}
-      ></div>
+      >
+        <Legend />
+      </div>
       <>
         {isOpen ? (
           <button
