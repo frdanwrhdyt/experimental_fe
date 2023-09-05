@@ -24,50 +24,51 @@ export default function Layout() {
         className={`w-full ${
           location.pathname !== "/"
             ? "h-[96%]"
-            : buttonTable
-            ? "h-[53%]"
-            : "h-[79%]"
+            : // : buttonTable
+              // ? "h-[53%]"
+              "h-[79%]"
         }`}
       >
         <Outlet />
       </div>
       {location.pathname === "/" && (
+        // <div
+        //   className={`bg-white   duration-500 w-full ${
+        //     buttonTable ? "h-[40%] transition-y-0" : "h-[14%] transition-y-full"
+        //   }`}
+        // >
+        //   <button
+        //     className="w-full h-fit hover:bg-gray-100 hover:shadow-md duration-300"
+        //     onClick={toggleTable}
+        //   >
+        //     open
+        //   </button>
+        //   <div
+        //     className={`w-full px-4  text-4xl ${
+        //       buttonTable
+        //         ? "h-[60%] transition-y-0"
+        //         : "hidden transition-y-full"
+        //     }`}
+        //     // hidden={!buttonTable}
+        //   >
+        //     ini table
+        //   </div>
         <div
-          className={`bg-white   duration-500 w-full ${
-            buttonTable ? "h-[40%] transition-y-0" : "h-[14%] transition-y-full"
-          }`}
+          className={`w-full flex items-center space-x-5 px-4 absolute bottom-0 h-[15%]`}
+          //  ${
+          //   buttonTable ? "h-[40%]" : "h-full"
+          // }
         >
-          <button
-            className="w-full h-fit hover:bg-gray-100 hover:shadow-md duration-300"
-            onClick={toggleTable}
-          >
-            open
-          </button>
-          <div
-            className={`w-full px-4  text-4xl ${
-              buttonTable
-                ? "h-[60%] transition-y-0"
-                : "hidden transition-y-full"
-            }`}
-            // hidden={!buttonTable}
-          >
-            ini table
-          </div>
-          <div
-            className={`w-full flex items-center space-x-5 px-4 absolute bottom-0 ${
-              buttonTable ? "h-[40%]" : "h-full"
-            } `}
-          >
-            <div className="w-3/12 flex space-x-2 items-center ">
-              <div className="">
-                <div className="font-semibold text-md">TelkomsatGIS</div>
-                <div className="text-xs">Market Intelligent</div>
-              </div>
-              <img src={TelkomsatLogo} className="w-40" alt="logo telkomsat" />
-              <Legend />
+          <div className="w-3/12 flex space-x-2 items-center ">
+            <div className="">
+              <div className="font-semibold text-md">TelkomsatGIS</div>
+              <div className="text-xs">Market Intelligent</div>
             </div>
+            <img src={TelkomsatLogo} className="w-40" alt="logo telkomsat" />
+            <Legend />
           </div>
         </div>
+        // </div>
       )}
     </div>
   );
